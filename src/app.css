@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  --color-space-black: #0B0B0F;
+  /* Dark background from palette */
+  --color-primary: #6D28D9;
+  /* Deep Purple */
+  --color-secondary: #A78BFA;
+  /* Medium Purple */
+  --color-tertiary: #C4B5FD;
+  /* Light Lavender */
+  --color-accent-pink: #F472B6;
+  /* Pink Accent */
+  --color-accent-blue: #60A5FA;
+  /* Blue Accent */
+
+  /* Mapping old vars to new palette for compatibility */
+  --color-neon-purple: var(--color-primary);
+  --color-purple-light: var(--color-secondary);
+
+  --font-display: Orbitron, sans-serif;
+  --font-sans: Inter, sans-serif;
+
+  --animate-star-birth: star-birth 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes star-birth {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+    filter: blur(10px) brightness(1);
+  }
+
+  40% {
+    opacity: 1;
+    filter: blur(0px) brightness(2);
+    /* Flash */
+  }
+
+  70% {
+    transform: scale(1.05);
+    /* Slight bounce */
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0px) brightness(1);
+  }
+}
+
+.reveal-hidden {
+  opacity: 0;
+}
+
+.reveal-visible {
+  animation: var(--animate-star-birth);
+}
+
+.glass-panel {
+  @apply bg-gradient-to-br from-white/5 via-black/10 to-transparent backdrop-blur-[2px] border-t border-l border-white/10 border-b-0 border-r-0 transition-all duration-300;
+  box-shadow: 0 0 30px rgba(109, 40, 217, 0.1);
+}
+
+.glass-panel:hover {
+  @apply border-white/20 bg-white/5;
+  box-shadow: 0 0 50px rgba(109, 40, 217, 0.2);
+}
+
+body {
+  @apply bg-space-black text-white drop-shadow-sm;
+}

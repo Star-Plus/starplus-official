@@ -1,0 +1,55 @@
+<script>
+    import { reveal } from "$lib/actions/reveal";
+
+    const team = [
+        { name: "Alex Ryker", role: "Lead Developer", img: "/team1.png" },
+        { name: "Sarah Nova", role: "Creative Director", img: "/team2.png" },
+        { name: "Marcus Void", role: "Tech Director", img: "/team3.png" },
+    ];
+</script>
+
+<section id="team" class="relative py-24 bg-transparent pointer-events-none">
+    <div class="max-w-7xl mx-auto px-4 z-10 relative pointer-events-auto">
+        <div class="text-center mb-16">
+            <h2
+                class="text-3xl md:text-5xl font-display font-bold text-white mb-4"
+            >
+                Our <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-pink"
+                    >Squad</span
+                >
+            </h2>
+            <p class="text-gray-400">The minds behind the simulation.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {#each team as member, i}
+                <div
+                    use:reveal={{ delay: i * 150 }}
+                    class="group relative glass-panel rounded-3xl overflow-hidden transition-all duration-500 hover:-translate-y-2 cursor-pointer p-8 flex flex-col items-center justify-center text-center min-h-[300px]"
+                >
+                    <div
+                        class="w-24 h-24 mb-6 rounded-full bg-gradient-to-br from-primary/20 to-secondary/5 flex items-center justify-center border border-primary/30 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_30px_rgba(109,40,217,0.15)]"
+                    >
+                        <h3
+                            class="text-3xl font-display font-bold text-primary opacity-80"
+                        >
+                            {member.name.charAt(0)}
+                        </h3>
+                    </div>
+
+                    <h3
+                        class="text-2xl font-bold text-white font-display group-hover:text-primary transition-colors mb-2"
+                    >
+                        {member.name}
+                    </h3>
+                    <p
+                        class="text-gray-400 font-mono text-sm tracking-wider uppercase"
+                    >
+                        {member.role}
+                    </p>
+                </div>
+            {/each}
+        </div>
+    </div>
+</section>
