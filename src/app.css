@@ -58,13 +58,33 @@
 }
 
 .glass-panel {
-  @apply bg-gradient-to-br from-white/5 via-black/10 to-transparent backdrop-blur-[2px] border-t border-l border-white/10 border-b-0 border-r-0 transition-all duration-300;
-  box-shadow: 0 0 30px rgba(109, 40, 217, 0.1);
+  @apply bg-transparent border-none transition-all duration-300;
+  text-shadow: 0 0 10px rgba(109, 40, 217, 0.5), 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
 .glass-panel:hover {
-  @apply border-white/20 bg-white/5;
-  box-shadow: 0 0 50px rgba(109, 40, 217, 0.2);
+  @apply bg-transparent translate-y-[-5px];
+  text-shadow: 0 0 20px rgba(109, 40, 217, 0.8), 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes space-float {
+
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+
+  33% {
+    transform: translateY(-10px) translateX(5px);
+  }
+
+  66% {
+    transform: translateY(5px) translateX(-5px);
+  }
+}
+
+.animate-float {
+  animation: space-float 8s ease-in-out infinite;
 }
 
 body {

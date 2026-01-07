@@ -13,16 +13,21 @@
             ? 'translate-y-0 opacity-100'
             : 'translate-y-10 opacity-0'}"
     >
-        <h1
-            class="font-display font-bold text-6xl md:text-9xl tracking-[0.2em] text-white mix-blend-overlay"
+        <div
+            class="animate-float"
+            style="animation-delay: 0.5s; animation-duration: 10s"
         >
-            STARPLUS
-        </h1>
+            <h1
+                class="font-display font-bold text-6xl md:text-9xl tracking-[0.2em] text-white mix-blend-overlay"
+            >
+                STARPLUS
+            </h1>
 
-        <p
-            class="text-primary font-mono text-sm tracking-[0.8em] uppercase opacity-60"
-        >
-            Next Gen Gaming Experience
-        </p>
+            <p
+                class="text-primary font-mono text-sm tracking-[0.8em] uppercase opacity-60 mt-12"
+            >
+                Next Gen Gaming Experience
+            </p>
+        </div>
     </div>
 </section>

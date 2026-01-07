@@ -58,39 +58,56 @@
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 perspective-[2000px]"
+        >
             {#each [...featuresLeft, ...featuresRight] as feature, i}
                 <div
                     use:reveal={{ delay: i * 100 }}
-                    class="group glass-panel p-6 rounded-2xl"
+                    class="group p-6 transform transition-all duration-700 hover:scale-110 hover:translate-z-10
+                    {i % 3 === 0 ? 'lg:rotate-y-[10deg] lg:translate-y-12' : ''}
+                    {i % 3 === 2
+                        ? 'lg:-rotate-y-[10deg] lg:translate-y-12'
+                        : ''}
+                    {i % 3 === 1 ? 'lg:translate-y-0' : ''}"
                 >
-                    <div class="flex flex-col items-center text-center gap-4">
+                    <div
+                        class="animate-float"
+                        style="animation-delay: {i *
+                            1.5}s; animation-duration: {8 + (i % 3) * 2}s"
+                    >
                         <div
-                            class="p-3 rounded-full bg-white/5 border border-primary/20 text-primary shadow-[0_0_15px_rgba(109,40,217,0.1)] group-hover:shadow-[0_0_20px_rgba(109,40,217,0.3)] transition-all"
+                            class="flex flex-col items-center text-center gap-4"
                         >
-                            <svg
-                                class="w-8 h-8"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
+                            <div
+                                class="p-3 rounded-full bg-white/5 border border-primary/20 text-primary shadow-[0_0_15px_rgba(109,40,217,0.1)] group-hover:shadow-[0_0_20px_rgba(109,40,217,0.3)] transition-all"
                             >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    d={feature.icon}
-                                />
-                            </svg>
-                        </div>
-                        <div>
-                            <h3
-                                class="text-xl font-bold text-white group-hover:text-primary transition-colors font-display mb-2"
-                            >
-                                {feature.title}
-                            </h3>
-                            <p class="text-gray-400 text-sm leading-relaxed">
-                                {feature.desc}
-                            </p>
+                                <svg
+                                    class="w-8 h-8"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="1.5"
+                                        d={feature.icon}
+                                    />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3
+                                    class="text-xl font-bold text-white group-hover:text-primary transition-colors font-display mb-2"
+                                >
+                                    {feature.title}
+                                </h3>
+                                <p
+                                    class="text-gray-400 text-sm leading-relaxed"
+                                >
+                                    {feature.desc}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>

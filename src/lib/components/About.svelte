@@ -14,37 +14,49 @@
                 : 'translate-y-20 opacity-0'}"
         >
             <h2
-                class="text-4xl md:text-5xl font-display font-bold mb-8 text-white"
+                class="text-4xl md:text-6xl font-display font-bold mb-12 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]"
             >
                 <span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-purple-light"
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-pink"
                 >
                     Crafting the Unknown
                 </span>
             </h2>
             <div
-                class="space-y-6 text-gray-300 text-lg leading-relaxed font-light mb-10"
+                class="space-y-8 text-gray-200 text-lg md:text-xl leading-relaxed font-light mb-16 drop-shadow-md"
             >
-                <p>
+                <div
+                    class="animate-float"
+                    style="animation-delay: 0.2s; animation-duration: 9s"
+                >
                     StarPlus Studios is more than just a game developer; we are
                     architects of digital dreams. Founded on the belief that
                     gaming is the ultimate art form, we push the boundaries of
                     what's possible in interactive storytelling.
-                </p>
-                <p>
+                </div>
+                <div
+                    class="animate-float"
+                    style="animation-delay: 2.5s; animation-duration: 11s"
+                >
                     Our team of visionaries extracts the raw essence of
                     imagination and forges it into playable realities. From
                     deep-space dogfights to intricate narrative RPGs, our
                     portfolio reflects our passion for the extraordinary.
-                </p>
-                <p class="font-bold text-neon-purple">
+                </div>
+                <div
+                    class="font-bold text-accent-pink tracking-widest uppercase text-sm animate-float"
+                    style="animation-delay: 4s; animation-duration: 8s"
+                >
                     Join us as we chart the uncharted.
-                </p>
+                </div>
             </div>
             <button
-                class="px-8 py-3 bg-white/5 border border-neon-purple/30 rounded-full hover:bg-neon-purple/10 transition-colors text-neon-purple font-display tracking-widest uppercase text-sm font-bold shadow-lg hover:shadow-neon-purple/20"
+                class="group px-8 py-3 relative bg-transparent overflow-hidden rounded-none border-l border-r border-primary/50 text-white font-display tracking-[0.2em] uppercase text-sm font-bold hover:text-primary transition-colors"
             >
-                Read Our Story
+                <span class="relative z-10">Read Our Story</span>
+                <div
+                    class="absolute inset-0 bg-white/5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"
+                ></div>
             </button>
         </div>
     </div>

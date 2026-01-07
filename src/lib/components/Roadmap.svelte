@@ -60,7 +60,7 @@
                 class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-transparent via-primary to-transparent opacity-50"
             ></div>
 
-            <div class="space-y-12 md:space-y-24">
+            <div class="space-y-24 md:space-y-48">
                 {#each phases as phase, i}
                     <div
                         class="relative flex items-center justify-between {i %
@@ -76,35 +76,47 @@
                                 : 'text-left pl-8'} transform transition-all duration-500 hover:scale-105"
                         >
                             <div
-                                use:reveal={{ delay: i * 200 }}
-                                class="glass-panel p-6 rounded-2xl group"
+                                class="animate-float"
+                                style="animation-delay: {i *
+                                    1.8}s; animation-duration: {8 +
+                                    (i % 2) * 4}s"
                             >
-                                <div class="text-primary font-mono mb-2">
-                                    {phase.date}
-                                </div>
-                                <h3
-                                    class="text-2xl font-bold text-white mb-4 font-display group-hover:text-primary transition-colors"
+                                <div
+                                    use:reveal={{ delay: i * 200 }}
+                                    class="p-6 group relative"
                                 >
-                                    {phase.name}
-                                </h3>
-                                <ul class="space-y-2 text-gray-400">
-                                    {#each phase.items as item}
-                                        <li
-                                            class="flex items-center {i % 2 ===
-                                            0
-                                                ? 'justify-end'
-                                                : 'justify-start'} gap-2"
-                                        >
-                                            {#if i % 2 !== 0}<span
-                                                    class="w-1.5 h-1.5 rounded-full bg-primary"
-                                                ></span>{/if}
-                                            {item}
-                                            {#if i % 2 === 0}<span
-                                                    class="w-1.5 h-1.5 rounded-full bg-primary"
-                                                ></span>{/if}
-                                        </li>
-                                    {/each}
-                                </ul>
+                                    <!-- Floating Glow -->
+                                    <div
+                                        class="absolute -inset-4 bg-primary/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                                    ></div>
+                                    <div class="text-primary font-mono mb-2">
+                                        {phase.date}
+                                    </div>
+                                    <h3
+                                        class="text-2xl font-bold text-white mb-4 font-display group-hover:text-primary transition-colors"
+                                    >
+                                        {phase.name}
+                                    </h3>
+                                    <ul class="space-y-2 text-gray-400">
+                                        {#each phase.items as item}
+                                            <li
+                                                class="flex items-center {i %
+                                                    2 ===
+                                                0
+                                                    ? 'justify-end'
+                                                    : 'justify-start'} gap-2"
+                                            >
+                                                {#if i % 2 !== 0}<span
+                                                        class="w-1.5 h-1.5 rounded-full bg-primary"
+                                                    ></span>{/if}
+                                                {item}
+                                                {#if i % 2 === 0}<span
+                                                        class="w-1.5 h-1.5 rounded-full bg-primary"
+                                                    ></span>{/if}
+                                            </li>
+                                        {/each}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
 

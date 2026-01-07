@@ -1,4 +1,4 @@
-<footer class="bg-black py-12 border-t border-white/10 relative z-10">
+<footer class="bg-transparent py-12 relative z-10 mt-24">
     <div class="max-w-7xl mx-auto px-4 text-center">
         <div class="mb-8">
             <a
