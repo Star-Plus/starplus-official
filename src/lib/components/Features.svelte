@@ -27,9 +27,9 @@
             icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
         },
         {
-            title: "Cloud Gaming",
-            desc: "Play anywhere with low-latency streaming.",
-            icon: "M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z",
+            title: "Development Tools",
+            desc: "Easy and efficient tools for creators.",
+            icon: "M12 6v6l4 2m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
         },
         {
             title: "Cloud Storage",
@@ -49,7 +49,7 @@
                 class="text-3xl md:text-5xl font-display font-bold text-white mb-4"
             >
                 Core <span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-pink"
+                    class="text-transparent bg-clip-text bg-linear-to-r from-primary to-accent-pink"
                     >Capabilities</span
                 >
             </h2>
@@ -65,9 +65,9 @@
                 <div
                     use:reveal={{ delay: i * 100 }}
                     class="group p-6 transform transition-all duration-700 hover:scale-110 hover:translate-z-10
-                    {i % 3 === 0 ? 'lg:rotate-y-[10deg] lg:translate-y-12' : ''}
+                    {i % 3 === 0 ? 'lg:rotate-y-10 lg:translate-y-12' : ''}
                     {i % 3 === 2
-                        ? 'lg:-rotate-y-[10deg] lg:translate-y-12'
+                        ? 'lg:-rotate-y-10 lg:translate-y-12'
                         : ''}
                     {i % 3 === 1 ? 'lg:translate-y-0' : ''}"
                 >
