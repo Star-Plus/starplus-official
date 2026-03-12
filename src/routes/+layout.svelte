@@ -1,12 +1,10 @@
-<script>
+<script lang="ts">
 	import "../app.css";
-	import { Canvas } from "@threlte/core";
-	import Scene from "$lib/components/Scene.svelte";
 
 	let scrollY = $state(0);
 
-	function handleScroll(e) {
-		scrollY = e.currentTarget.scrollTop;
+	function handleScroll(e: Event) {
+		scrollY = (e.currentTarget as HTMLElement).scrollTop;
 	}
 
 	let { children } = $props();
@@ -19,13 +17,6 @@
 <div
 	class="h-screen w-full bg-space-black text-white selection:bg-primary selection:text-white overflow-hidden relative"
 >
-	<!-- 3D Background -->
-	<div class="absolute inset-0 z-0">
-		<Canvas>
-			<Scene {scrollY} />
-		</Canvas>
-	</div>
-
 	<!-- UI Layer -->
 	<div class="absolute inset-0 z-10 flex flex-col pointer-events-none">
 		<main

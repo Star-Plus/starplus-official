@@ -3,7 +3,7 @@
         <div class="mb-8">
             <a
                 href="/"
-                class="text-3xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-pink hover:opacity-80 transition-opacity"
+                class="text-3xl font-display font-bold text-transparent bg-clip-text bg-linear-to-r from-primary to-accent-pink hover:opacity-80 transition-opacity"
             >
                 STARPLUS
             </a>
