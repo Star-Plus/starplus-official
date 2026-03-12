@@ -1,6 +1,7 @@
 <script>
     import Hero from "$lib/components/Hero.svelte";
     import Footer from "$lib/components/Footer.svelte";
+    import Portfolio from "$lib/components/Portfolio.svelte";
 </script>
 
 <svelte:head>
@@ -8,4 +9,5 @@
 </svelte:head>
 
 <Hero />
+<Portfolio />
 <Footer />

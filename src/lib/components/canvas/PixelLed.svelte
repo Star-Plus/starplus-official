@@ -1,6 +1,7 @@
 
 <script lang="ts">
     import { onMount } from "svelte";
+    import Icon from "@iconify/svelte";
 
     type Palette = string[];
 
@@ -60,6 +61,7 @@
     let mouseX = -9999;
     let mouseY = -9999;
     const mouseRadius = 70;
+    let isPlaying = true;
 
     type RgbColor = { r: number; g: number; b: number };
     let parsedPalettes: RgbColor[][] = [];
@@ -76,27 +78,31 @@
 
         resizeObserver.observe(canvas);
         resizeCanvas();
-        animationId = requestAnimationFrame(animate);
+        if (isPlaying) {
+            animationId = requestAnimationFrame(animate);
+        }
 
         const handleMouseMove = (e: MouseEvent) => {
             const rect = canvas.getBoundingClientRect();
-            mouseX = e.clientX - rect.left;
-            mouseY = e.clientY - rect.top;
-        };
-
-        const handleMouseLeave = () => {
-            mouseX = -9999;
-            mouseY = -9999;
+            const relX = e.clientX - rect.left;
+            const relY = e.clientY - rect.top;
+            
+            // Only track mouse if within canvas bounds
+            if (relX >= 0 && relX <= rect.width && relY >= 0 && relY <= rect.height) {
+                mouseX = relX;
+                mouseY = relY;
+            } else {
+                mouseX = -9999;
+                mouseY = -9999;
+            }
         };
 
         document.addEventListener("mousemove", handleMouseMove);
-        canvas.addEventListener("mouseleave", handleMouseLeave);
 
         return () => {
             resizeObserver.disconnect();
             cancelAnimationFrame(animationId);
             document.removeEventListener("mousemove", handleMouseMove);
-            canvas.removeEventListener("mouseleave", handleMouseLeave);
         };
     });
 
@@ -234,6 +240,15 @@
         rebuildGridCache();
     }
 
+    function togglePlayPause() {
+        isPlaying = !isPlaying;
+        if (isPlaying) {
+            animationId = requestAnimationFrame(animate);
+        } else {
+            cancelAnimationFrame(animationId);
+        }
+    }
+
     function animate(timestamp: number) {
 
         const t = timestamp * timeScale;
@@ -298,14 +313,24 @@
             }
         }
 
-        animationId = requestAnimationFrame(animate);
+        if (isPlaying) {
+            animationId = requestAnimationFrame(animate);
+        }
     }
 
 </script>
 
-<canvas bind:this={canvas} class="w-full h-full pixel-canvas">
-
-</canvas>
+<div class="relative w-full h-full">
+    <canvas bind:this={canvas} class="w-full h-full pixel-canvas pointer-events-none"></canvas>
+    <div class="absolute inset-0 pointer-events-none">
+        <button
+            on:click={togglePlayPause}
+            class="absolute top-4 right-4 px-2 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-700 transition-colors font-semibold text-sm z-50 cursor-pointer pointer-events-auto border border-slate-600 hover:border-slate-400"
+        >
+            <Icon icon={isPlaying ? "mdi:pause" : "mdi:play"} width="20" height="20" />
+        </button>
+    </div>
+</div>
 
 <style>
     .pixel-canvas {
