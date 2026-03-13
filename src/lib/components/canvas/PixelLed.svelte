@@ -26,6 +26,9 @@
     export let ringFrequency = 0.62;
     export let ringSpeedBase = 0.8;
 
+    // Keep neighboring pixels musically related instead of drifting into noise.
+    export let harmonicDetune = 0.22;
+
     export let flickerWeight = 0.0024;
     export let flickerSpeedBase = 10.1;
     export let flickerSpeedVariance = 10.8;
@@ -257,8 +260,16 @@
         const patternInfluence = Math.sin(patternPhase) * patternVariance;
 
         const speed = speedBase + Math.sin(t * speedFrequency) * speedVariance + patternInfluence * 0.3;
-        const waveScaleX = waveScaleXBase + Math.cos(t * waveScaleXFrequency + patternPhase) * waveScaleXVariance;
-        const waveScaleY = waveScaleYBase + Math.sin(t * waveScaleYFrequency + patternPhase) * waveScaleYVariance;
+        const waveScaleX = clamp(
+            waveScaleXBase + Math.cos(t * waveScaleXFrequency + patternPhase) * waveScaleXVariance,
+            0.003,
+            0.35
+        );
+        const waveScaleY = clamp(
+            waveScaleYBase + Math.sin(t * waveScaleYFrequency + patternPhase) * waveScaleYVariance,
+            0.003,
+            0.35
+        );
 
         const safePixelSize = Math.max(2, pixelSize);
         const safePixelGap = clamp(pixelGap, 0, safePixelSize - 1);
@@ -276,10 +287,12 @@
 
                 const baseWave = Math.sin(col * 0.18 + patternPhase * 0.5) + Math.cos(row * 0.22 + patternPhase * 0.3);
 
+                const seedPhase = seed * Math.PI * 2 * harmonicDetune;
+
                 const wave =
-                    Math.sin(col * waveScaleX + t * (speed + seed * 0.6)) +
-                    Math.cos(row * waveScaleY - t * (speed * 0.85 + seed * 0.5));
-                const ring = Math.sin(radius * ringFrequency - t * (ringSpeedBase + seed));
+                    Math.sin(col * waveScaleX + t * speed + seedPhase) +
+                    Math.cos(row * waveScaleY - t * (speed * 0.85) + seedPhase * 0.7);
+                const ring = Math.sin(radius * ringFrequency - t * ringSpeedBase + seedPhase * 0.4);
                 const flicker = Math.sin(t * (flickerSpeedBase + seed * flickerSpeedVariance) + seed * flickerPhaseScale) * flickerWeight;
 
                 const signal = (baseWave * baseWaveStrength) + (wave * waveWeight) + (ring * ringWeight) + flicker;
