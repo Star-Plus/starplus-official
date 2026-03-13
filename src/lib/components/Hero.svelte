@@ -24,7 +24,7 @@
         </div>
 
         <h1
-            class="font-display selection:bg-transparent! cursor-default font-bold text-4xl md:text-6xl lg:text-8xl tracking-[0.3em] text-white "
+            class="font-landing! selection:bg-transparent! cursor-default font-bold text-4xl md:text-6xl lg:text-8xl tracking-[0.5em] text-white "
         >
             STARPLUS<br>GAMES
         </h1>

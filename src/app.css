@@ -22,6 +22,7 @@
 
   --font-display: Orbitron, sans-serif;
   --font-sans: Inter, sans-serif;
+  --font-landing: 'Landing', sans-serif;
 
 }
 
@@ -35,4 +36,9 @@ html {
 }
 *::-webkit-scrollbar {
   display: none;
+}
+
+@font-face {
+  font-family: 'Landing';
+  src: url('/fonts/PixelGamin.ttf') format('truetype');
 }
