@@ -1,5 +1,6 @@
 <script lang="ts">
 	import "../app.css";
+	import NavStars from "$lib/components/NavStars.svelte";
 
 	let scrollY = $state(0);
 
@@ -20,10 +21,12 @@
 	<!-- UI Layer -->
 	<div class="absolute inset-0 z-10 flex flex-col pointer-events-none">
 		<main
-			class="flex-1 overflow-y-auto overflow-x-hidden scroll-smooth pointer-events-auto"
+			class="flex-1 overflow-y-auto overflow-x-hidden scroll-smooth snap-y snap-mandatory pointer-events-auto"
 			onscroll={handleScroll}
 		>
 			{@render children()}
 		</main>
+		
+		<NavStars />
 	</div>
 </div>

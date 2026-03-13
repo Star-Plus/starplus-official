@@ -7,7 +7,7 @@
 </script>
 
 <section
-    class="min-h-screen flex items-center justify-center relative overflow-hidden pointer-events-none"
+    class="h-screen w-full flex items-center justify-center relative overflow-hidden pointer-events-none snap-start"
 >
 
     <div class="w-screen h-screen absolute top-0 left-0 -z-10 p-20">
