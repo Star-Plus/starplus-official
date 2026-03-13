@@ -6,10 +6,6 @@
     import Portfolio from "$lib/components/Portfolio.svelte";
 </script>
 
-<svelte:head>
-    <title>Star Plus Games - Indie and Sleek</title>
-</svelte:head>
-
 <Hero />
 <Portfolio />
 <DiscordPanel />

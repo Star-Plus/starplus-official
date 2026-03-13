@@ -72,7 +72,7 @@
 </script>
 
 <svelte:head>
-	<title>StarPlus - Next Gen Gaming</title>
+	<title>StarPlus - Indie and Sleek</title>
 
 </svelte:head>
 
