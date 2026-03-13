@@ -1,59 +1,62 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
+    import { onMount, tick } from 'svelte';
     import { browser } from '$app/environment';
 
-    // The number of sections we have
-    const sectionsCount = 5;
+    // Store references to the actual DOM elements
+    let sections: HTMLElement[] = $state([]);
     let activeSectionIndex = $state(0);
 
-    // Creates an array [0, 1, 2, 3, 4] for iteration
-    let dots = [...Array(sectionsCount).keys()];
-
-    onMount(() => {
+    onMount(async () => {
         if (!browser) return;
+        await tick();
 
-        // The scroll container is the main element in +layout.svelte
+        // The scroll container
         const container = document.querySelector('main');
         if (!container) return;
 
-        // Update active index based on scroll position
-        const handleScroll = () => {
-            const containerScrollTop = container.scrollTop;
-            const containerHeight = container.clientHeight;
-            // Calculate which section is currently most visible
-            activeSectionIndex = Math.round(containerScrollTop / containerHeight);
+        // Give the DOM a tiny fraction to mount all routed child components
+        setTimeout(() => {
+            // Find all top-level elements inside the main scroll container
+            const foundSections = Array.from(container.children).filter(el => 
+                el.tagName !== 'STYLE' && el.tagName !== 'SCRIPT'
+            ) as HTMLElement[];
             
-            // Bounds check
-            if (activeSectionIndex < 0) activeSectionIndex = 0;
-            if (activeSectionIndex >= sectionsCount) activeSectionIndex = sectionsCount - 1;
-        };
+            sections = foundSections;
 
-        // Attach scroll listener to the container
-        container.addEventListener('scroll', handleScroll, { passive: true });
-        
-        // Initial call
-        handleScroll();
+            if (sections.length === 0) return;
 
-        return () => {
-            container.removeEventListener('scroll', handleScroll);
-        };
+            // Using IntersectionObserver is robust for varying section heights
+            const observerOptions = {
+                root: container, 
+                rootMargin: '0px',
+                threshold: 0.5 // Trigger when a section is 50% visible
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const index = sections.indexOf(entry.target as HTMLElement);
+                        if (index !== -1) {
+                            activeSectionIndex = index;
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+        }, 100);
     });
 
     const scrollToSection = (index: number) => {
-        if (!browser) return;
-        const container = document.querySelector('main');
-        if (!container) return;
-
-        // Scroll to the specific height (assuming each section is exactly 100vh)
-        container.scrollTo({
-            top: index * window.innerHeight,
-            behavior: 'smooth'
-        });
+        if (!browser || !sections[index]) return;
+        
+        // Let the browser handle the smooth scroll natively to the element
+        sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
 </script>
 
 <div class="nav-stars-container pointer-events-auto">
-    {#each dots as dotIndex}
+    {#each sections as _, dotIndex}
         <button 
             class="star-btn" 
             class:active={activeSectionIndex === dotIndex}

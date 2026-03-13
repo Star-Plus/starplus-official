@@ -25,7 +25,11 @@
 
 }
 
-/* Hide scrollbar */
+/* Hide scrollbar and enforce smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   scrollbar-width: none;
 }

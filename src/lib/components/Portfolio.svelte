@@ -19,7 +19,7 @@
 
 </script>
 
-<section class="w-screen h-screen p-6 md:p-12 lg:p-20 overflow-hidden">
+<section class="w-screen h-screen p-6 md:p-12 lg:p-20 overflow-hidden snap-start">
     <div class="relative w-full h-full bg-slate-950/80 shadow-[0_30px_80px_rgba(15,23,42,0.45)] backdrop-blur overflow-hidden">
         <div
             class="flex h-full transition-transform duration-700 ease-out"
