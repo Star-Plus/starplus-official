@@ -10,12 +10,12 @@
     class="h-screen w-full flex items-center justify-center relative overflow-hidden pointer-events-none snap-start"
 >
 
-    <div class="w-screen h-screen absolute top-0 left-0 -z-10 p-20">
+    <div class="w-screen h-screen absolute top-0 left-0 -z-10 lg:p-20 p-10">
         <PixelLed />
     </div>
 
     <div
-        class="relative z-10 text-center space-y-12 pointer-events-auto transform transition-all duration-1000 {mounted
+        class="relative z-10 text-center h-full flex flex-col items-center justify-center space-y-12 pointer-events-auto transform transition-all duration-1000 {mounted
             ? 'translate-y-0 opacity-100'
             : 'translate-y-10 opacity-0'}"
     >
@@ -24,13 +24,13 @@
         </div>
 
         <h1
-            class="font-display selection:bg-transparent! cursor-default font-bold text-6xl md:text-8xl tracking-[0.3em] text-white "
+            class="font-display selection:bg-transparent! cursor-default font-bold text-4xl md:text-6xl lg:text-8xl tracking-[0.3em] text-white "
         >
             STARPLUS<br>GAMES
         </h1>
 
         <p
-            class="text-neutral-200 font-Inter text-md opacity-100 mt-12"
+            class="absolute bottom-3 text-neutral-400 font-Inter text-xs lg:text-md opacity-100 mt-12"
         >
             Making games, and things related to games.
         </p>

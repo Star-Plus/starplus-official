@@ -29,7 +29,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p class="copyright">© 2026 StarPlus Indie Game Studios. All rights reserved.</p>
+                <p class="copyright">© 2026 Star Plus Games. All rights reserved.</p>
             </div>
         </div>
     </div>
@@ -228,6 +228,12 @@
         .social-links {
             flex-wrap: wrap;
             gap: 1.5rem;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .serif-link {
+            font-size: 1.15rem;
         }
     }
 </style>

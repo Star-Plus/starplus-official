@@ -1,20 +1,42 @@
-<script>
+<script lang="ts">
+    import ContactFormApi, { ContactFormData, type ContactTopic } from "$lib/api/ContactFormApi";
+
     let isSubmitting = false;
     let isSuccess = false;
+    let submitError = "";
 
-    /**
-     * @param {Event} e
-     */
-    function handleSubmit(e) {
+    async function handleSubmit(e: SubmitEvent) {
         e.preventDefault();
+        const form = e.currentTarget as HTMLFormElement;
+        const formData = new FormData(form);
+
+        const payload = {
+            name: String(formData.get("name") ?? "").trim(),
+            email: String(formData.get("email") ?? "").trim(),
+            topic: String(formData.get("topic") ?? "") as ContactTopic,
+            message: String(formData.get("message") ?? "").trim()
+        };
+
+        if (!payload.name || !payload.email || !payload.topic || !payload.message) {
+            submitError = "Please fill out all required fields.";
+            isSuccess = false;
+            return;
+        }
+
         isSubmitting = true;
-        
-        setTimeout(() => {
-            isSubmitting = false;
+        isSuccess = false;
+        submitError = "";
+
+        try {
+            await ContactFormApi.submit(new ContactFormData(payload));
+            form.reset();
             isSuccess = true;
-            /** @type {HTMLFormElement} */(e.target).reset();
-            setTimeout(() => { isSuccess = false; }, 3000);
-        }, 1500);
+        } catch {
+            isSuccess = false;
+            submitError = "Could not send message. Please try again.";
+        } finally {
+            isSubmitting = false;
+        }
     }
 </script>
 
@@ -41,9 +63,9 @@
                     <label for="topic">Topic</label>
                     <select id="topic" name="topic" required>
                         <option value="" disabled selected>Select a topic</option>
-                        <option value="general">General Inquiry</option>
-                        <option value="project">New Project</option>
-                        <option value="partnership">Partnership</option>
+                        <option value="GENERAL">General Inquiry</option>
+                        <option value="NEW PROJECT">New Project</option>
+                        <option value="PARTNERSHIP">Partnership</option>
                     </select>
                 </div>
 
@@ -61,6 +83,14 @@
                         Send Message
                     {/if}
                 </button>
+
+                {#if isSubmitting}
+                    <p class="submit-status sending" aria-live="polite">Sending your message...</p>
+                {:else if isSuccess}
+                    <p class="submit-status success" aria-live="polite">Your message was sent successfully.</p>
+                {:else if submitError}
+                    <p class="submit-status error" aria-live="polite">{submitError}</p>
+                {/if}
             </form>
         </div>
 
@@ -73,10 +103,6 @@
                 <div class="info-item">
                     <span class="info-label">Email</span>
                     <a href="mailto:hello@starplus.com" class="info-value">hello@starplus.com</a>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Location</span>
-                    <span class="info-value">123 Innovation Way<br/>Tech District, NY 10001</span>
                 </div>
             </div>
         </div>
@@ -206,6 +232,24 @@
         cursor: not-allowed;
     }
 
+    .submit-status {
+        margin: 0.25rem 0 0 0;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .submit-status.sending {
+        color: #a1a1aa;
+    }
+
+    .submit-status.success {
+        color: #8ef7ba;
+    }
+
+    .submit-status.error {
+        color: #ff8a8a;
+    }
+
     /* Right Column: Slogan */
     .slogan-column {
         display: flex;
@@ -285,6 +329,46 @@
     }
 
     @media (max-width: 640px) {
+        .title {
+            font-size: 1.7rem;
+        }
+
+        .subtitle {
+            font-size: 0.88rem;
+        }
+
+        .slogan-title {
+            font-size: 1.9rem;
+        }
+
+        .slogan-text {
+            font-size: 0.92rem;
+        }
+
+        label {
+            font-size: 0.75rem;
+        }
+
+        input, textarea, select {
+            font-size: 0.9rem;
+        }
+
+        .submit-btn {
+            font-size: 0.9rem;
+        }
+
+        .submit-status {
+            font-size: 0.8rem;
+        }
+
+        .info-label {
+            font-size: 0.7rem;
+        }
+
+        .info-value {
+            font-size: 0.9rem;
+        }
+
         .form-row {
             grid-template-columns: 1fr;
         }

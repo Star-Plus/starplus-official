@@ -52,7 +52,7 @@
                 </button>
             </div>
 
-            <div class="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 gap-2 rounded-full border border-white/10 bg-slate-900/60 px-3 py-2 backdrop-blur">
+            <div class="absolute bottom-5 left-1/2 z-20 -translate-x-1/2 gap-2 rounded-full border border-white/10 bg-slate-900/60 px-3 py-2 backdrop-blur hidden md:flex">
                 {#each projectStore as _, index}
                     <button
                         type="button"

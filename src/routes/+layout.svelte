@@ -73,6 +73,7 @@
 
 <svelte:head>
 	<title>StarPlus - Next Gen Gaming</title>
+
 </svelte:head>
 
 <div

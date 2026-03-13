@@ -76,7 +76,7 @@
         </div>
     {/if}
 
-    <div class="absolute top-0 left-0 w-full h-full">
+    <div class="absolute top-0 left-0 w-full h-3/4 md:h-full">
         <img
             src={project.image}
             alt={project.name}
@@ -109,7 +109,7 @@
     </div>
 
     {#if !isFullscreen}
-        <a href={project.link} target="_blank" class="absolute bottom-5 right-5 z-20 outline-none flex gap-2 items-center bg-neutral-100/90 border-2 border-primary px-4 py-2 rounded-full text-sm font-semibold text-black hover:bg-primary  hover:text-white pointer-events-auto transition-all duration-400">
+        <a href={project.link} target="_blank" class="absolute top-5 right-5 z-20 outline-none flex gap-2 items-center bg-space-black border border-primary px-4 py-2 rounded-full text-sm font-semibold text-white hover:bg-primary  pointer-events-auto transition-all duration-400">
             <span>View full page</span>
             <Icon icon="typcn:arrow-right" width="20" height="20"/>
         </a>
