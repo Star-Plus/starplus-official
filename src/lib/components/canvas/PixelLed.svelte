@@ -1,12 +1,15 @@
-
 <script lang="ts">
     import { onMount } from "svelte";
     import Icon from "@iconify/svelte";
-
-    type Palette = string[];
+    import {
+        buildPaletteLutCss,
+        PIXEL_LED_COLOR_STEPS,
+        PIXEL_LED_PALETTES,
+        type Palette
+    } from "$lib/theme/pixelPalette";
 
     export let pixelSize = 10;
-    export let pixelGap =2;
+    export let pixelGap = 0;
     export let timeScale = 0.00009;
 
     export let speedBase = 0.1;
@@ -41,12 +44,7 @@
 
     export let paletteCycleSpeed = 1.12;
     export let offPixelColor = "rgba(8, 10, 18, 0.75)";
-    export let palettes: Palette[] = [
-        ["#5337FF", "#22d3ee", "#60a5fa", "#a78bfa"],
-        ["#FF378E", "#fb7185", "#f43f5e", "#e879f9"],
-        ["#84cc16", "#22c55e", "#14b8a6", "#06b6d4"],
-        ["#f97316", "#ef4444", "#ec4899", "#8b5cf6"]
-    ];
+    export let palettes: Palette[] = PIXEL_LED_PALETTES;
 
     let canvas: HTMLCanvasElement;
     let ctx: CanvasRenderingContext2D;
@@ -63,11 +61,7 @@
     const mouseRadius = 70;
     let isPlaying = true;
 
-    type RgbColor = { r: number; g: number; b: number };
-    let parsedPalettes: RgbColor[][] = [];
-
-    const fallbackHexPalettes: Palette[] = [["#2dd4bf", "#22d3ee"]];
-    const colorSteps = 64;
+    const colorSteps = PIXEL_LED_COLOR_STEPS;
 
     onMount(() => {
         ctx = canvas.getContext("2d")!;
@@ -124,38 +118,12 @@
         return n - Math.floor(n);
     }
 
-    function hexToRgb(hex: string) {
-        const value = hex.replace("#", "");
-        return {
-            r: Number.parseInt(value.slice(0, 2), 16),
-            g: Number.parseInt(value.slice(2, 4), 16),
-            b: Number.parseInt(value.slice(4, 6), 16)
-        };
-    }
-
     function lerp(a: number, b: number, t: number) {
         return a + (b - a) * t;
     }
 
     function clamp(value: number, min: number, max: number) {
         return Math.min(max, Math.max(min, value));
-    }
-
-    function normalizePalettes(input: Palette[]) {
-        const source = input.length > 0 ? input : fallbackHexPalettes;
-        return source.map((palette, paletteIndex) => {
-            if (palette.length === 0) {
-                return [hexToRgb(fallbackHexPalettes[0][0])];
-            }
-
-            return palette.map((hex, colorIndex) => {
-                if (!hex) {
-                    const fallback = source[paletteIndex][0] || fallbackHexPalettes[0][0];
-                    return hexToRgb(fallback);
-                }
-                return hexToRgb(hex);
-            });
-        });
     }
 
     function rebuildGridCache() {
@@ -190,52 +158,9 @@
     }
 
     function buildColorLut(t: number) {
-        const safePalettes = parsedPalettes.length > 0 ? parsedPalettes : normalizePalettes(fallbackHexPalettes);
-        const cycle = (t * paletteCycleSpeed) % safePalettes.length;
-        const fromIndex = Math.floor(cycle);
-        const toIndex = (fromIndex + 1) % safePalettes.length;
-        const paletteBlend = cycle - fromIndex;
-
-        const fromPalette = safePalettes[fromIndex].length > 1
-            ? safePalettes[fromIndex]
-            : [safePalettes[fromIndex][0], safePalettes[fromIndex][0]];
-        const toPalette = safePalettes[toIndex].length > 1
-            ? safePalettes[toIndex]
-            : [safePalettes[toIndex][0], safePalettes[toIndex][0]];
-
-        const stopCount = fromPalette.length;
-        const colors = new Array<string>(colorSteps);
-
-        for (let step = 0; step < colorSteps; step += 1) {
-            const colorPosition = step / (colorSteps - 1);
-            const scaled = colorPosition * (stopCount - 1);
-            const left = Math.floor(scaled);
-            const right = Math.min(stopCount - 1, left + 1);
-            const stopBlend = scaled - left;
-
-            const fromLeft = fromPalette[left];
-            const fromRight = fromPalette[right];
-            const toLeft = toPalette[left];
-            const toRight = toPalette[right];
-
-            const blendFromR = lerp(fromLeft.r, fromRight.r, stopBlend);
-            const blendFromG = lerp(fromLeft.g, fromRight.g, stopBlend);
-            const blendFromB = lerp(fromLeft.b, fromRight.b, stopBlend);
-
-            const blendToR = lerp(toLeft.r, toRight.r, stopBlend);
-            const blendToG = lerp(toLeft.g, toRight.g, stopBlend);
-            const blendToB = lerp(toLeft.b, toRight.b, stopBlend);
-
-            const r = Math.round(lerp(blendFromR, blendToR, paletteBlend));
-            const g = Math.round(lerp(blendFromG, blendToG, paletteBlend));
-            const b = Math.round(lerp(blendFromB, blendToB, paletteBlend));
-            colors[step] = `rgb(${r}, ${g}, ${b})`;
-        }
-
-        return colors;
+        return buildPaletteLutCss(palettes, t, paletteCycleSpeed, colorSteps);
     }
 
-    $: parsedPalettes = normalizePalettes(palettes);
     $: if (canvas) {
         rebuildGridCache();
     }
@@ -322,14 +247,6 @@
 
 <div class="relative w-full h-full">
     <canvas bind:this={canvas} class="w-full h-full pixel-canvas pointer-events-none"></canvas>
-    <div class="absolute inset-0 pointer-events-none">
-        <button
-            on:click={togglePlayPause}
-            class="absolute top-4 right-4 px-2 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-700 transition-colors font-semibold text-sm z-50 cursor-pointer pointer-events-auto border border-slate-600 hover:border-slate-400"
-        >
-            <Icon icon={isPlaying ? "mdi:pause" : "mdi:play"} width="20" height="20" />
-        </button>
-    </div>
 </div>
 
 <style>
