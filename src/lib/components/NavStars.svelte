@@ -3,7 +3,7 @@
     import { browser } from '$app/environment';
 
     // The number of sections we have
-    const sectionsCount = 4;
+    const sectionsCount = 5;
     let activeSectionIndex = $state(0);
 
     // Creates an array [0, 1, 2, 3, 4] for iteration
