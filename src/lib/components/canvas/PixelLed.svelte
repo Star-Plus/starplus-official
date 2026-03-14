@@ -1,6 +1,5 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import Icon from "@iconify/svelte";
     import {
         buildPaletteLutCss,
         PIXEL_LED_COLOR_STEPS,
@@ -10,7 +9,7 @@
 
     export let pixelSize = 10;
     export let pixelGap = 0;
-    export let timeScale = 0.00009;
+    export let timeScale = 0.00004;
 
     export let speedBase = 0.1;
     export let speedVariance = 0.05;
@@ -29,10 +28,10 @@
     export let ringFrequency = 0.62;
     export let ringSpeedBase = 0.8;
 
-    export let flickerWeight = 0.0024;
-    export let flickerSpeedBase = 10.1;
-    export let flickerSpeedVariance = 10.8;
-    export let flickerPhaseScale = 1.5;
+    export let flickerWeight = 0.00024;
+    export let flickerSpeedBase = 0.001;
+    export let flickerSpeedVariance = 0.8;
+    export let flickerPhaseScale = 0.5;
 
     export let thresholdBase = 0.048;
     export let thresholdVariance = 0.14;
