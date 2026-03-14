@@ -1,3 +1,7 @@
+<script>
+    import Icon from "@iconify/svelte";
+</script>
+
 <footer class="starplus-footer">
     <!-- Purple flashlight sweep -->
     <div class="footer-glare"></div>
@@ -20,10 +24,18 @@
                 <div class="info-block connect-block">
                     <h4 class="block-title">Connect</h4>
                     <div class="social-links">
-                        <a href="https://x.com/StarPlusArts" target="_blank" rel="noopener noreferrer" class="serif-link">Twitter</a>
-                        <a href="https://www.tiktok.com/@star.plus.games?_r=1&_t=ZS-94eLfTM6e0W" target="_blank" rel="noopener noreferrer" class="serif-link">TikTok</a>
-                        <a href="https://www.youtube.com/@StarPlusGames." target="_blank" rel="noopener noreferrer" class="serif-link">YouTube</a>
-                        <a href="https://www.instagram.com/starplus.games/?hl=en" target="_blank" rel="noopener noreferrer" class="serif-link">Instagram</a>
+                        <a href="https://x.com/StarPlusArts" target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="X (Twitter)">
+                            <Icon icon="ri:twitter-x-fill" width="30" height="30" />
+                        </a>
+                        <a href="https://www.tiktok.com/@star.plus.games?_r=1&_t=ZS-94eLfTM6e0W" target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="TikTok">
+                            <Icon icon="ri:tiktok-fill" width="30" height="30" />
+                        </a>
+                        <a href="https://www.youtube.com/@StarPlusGames." target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="YouTube">
+                            <Icon icon="ri:youtube-fill" width="30" height="30" />
+                        </a>
+                        <a href="https://www.instagram.com/starplus.games/?hl=en" target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="Instagram">
+                            <Icon icon="ri:instagram-fill" width="30" height="30" />
+                        </a>
                     </div>
                 </div>
             </div>
@@ -182,19 +194,19 @@
         gap: 2.5rem;
     }
 
-    .serif-link {
-        font-family: 'Playfair Display', serif;
-        font-style: italic;
+    .icon-link {
         color: #f0f0f0;
-        font-size: 1.35rem; 
         text-decoration: none;
-        transition: color 0.3s ease, transform 0.3s ease;
-        display: inline-block;
+        transition: color 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
     
-    .serif-link:hover {
+    .icon-link:hover {
         color: #d8b4fe; /* Purple match */
-        transform: translateY(-2px);
+        transform: translateY(-3px) scale(1.1);
+        filter: drop-shadow(0 0 10px rgba(216, 180, 254, 0.4));
     }
 
     .footer-bottom {
@@ -232,8 +244,8 @@
     }
 
     @media (max-width: 640px) {
-        .serif-link {
-            font-size: 1.15rem;
+        .social-links {
+            gap: 1.5rem;
         }
     }
 </style>
